@@ -13,7 +13,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: PocketMage_PDA/Code/PocketMage_V3
+        working-directory: Code/PocketMage_V3
 
     steps:
       - name: Conjure the Repository
