@@ -1,7 +1,6 @@
 name: Creare Magicae Ordinationis Fabrica
 # above means Create (infinitive) a magical organization (or arrangement literally) device. I'm a bit rusty in Latin so this may be off
 
-
 on:
   push:
     branches: [ "main" ]
@@ -11,6 +10,10 @@ on:
 jobs:
   creare_magicae_ordinationis_fabrica:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: PocketMage_PDA/Code/PocketMage_V3
 
     steps:
       - name: Conjure the Repository
