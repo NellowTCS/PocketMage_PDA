@@ -38,7 +38,13 @@ jobs:
         run: pip install -U platformio
 
       - name: Forge the PocketMage Spell
-        run: pio run -e PM_V3
+        run: |
+          pio run -e PM_V3
+          echo "Listing the build directory:"
+          ls -l .pio/build/PM_V3
+          echo "Listing recursively:"
+          ls -lR .pio/build/PM_V3
+
 
       - name: Create the Artifacts
         uses: actions/upload-artifact@v4
