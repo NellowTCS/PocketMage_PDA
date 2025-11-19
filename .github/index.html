@@ -21,6 +21,7 @@
         window.ESPLoader = ESPLoader;
         window.Transport = Transport;
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js"></script>
     <style>
         :root {
             --wp--preset--color--background: #fefef3;
@@ -567,20 +568,32 @@
 
                 statusDiv.textContent = 'Loading firmware files...';
 
+                // Function to convert ArrayBuffer to binary string
+                function arrayBufferToString(buffer) {
+                    const bytes = new Uint8Array(buffer);
+                    let binary = '';
+                    for (let i = 0; i < bytes.byteLength; i++) {
+                        binary += String.fromCharCode(bytes[i]);
+                    }
+                    return binary;
+                }
+
                 // Determine which files to flash based on preserve data option
                 const fileArray = [];
                 
                 if (!preserveData) {
-                    // Full install: flash bootloader and partitions
+                    // Full install - flash bootloader and partitions
                     const bootloaderResponse = await fetch(`./firmware/${version}/${firmwareFiles.bootloader.path}`);
-                    const bootloaderData = await bootloaderResponse.arrayBuffer();
+                    const bootloaderArrayBuffer = await bootloaderResponse.arrayBuffer();
+                    const bootloaderData = arrayBufferToString(bootloaderArrayBuffer);
                     fileArray.push({
                         data: bootloaderData,
                         address: firmwareFiles.bootloader.offset
                     });
 
                     const partitionsResponse = await fetch(`./firmware/${version}/${firmwareFiles.partitions.path}`);
-                    const partitionsData = await partitionsResponse.arrayBuffer();
+                    const partitionsArrayBuffer = await partitionsResponse.arrayBuffer();
+                    const partitionsData = arrayBufferToString(partitionsArrayBuffer);
                     fileArray.push({
                         data: partitionsData,
                         address: firmwareFiles.partitions.offset
@@ -589,7 +602,8 @@
 
                 // Always flash the application
                 const appResponse = await fetch(`./firmware/${version}/${firmwareFiles.application.path}`);
-                const appData = await appResponse.arrayBuffer();
+                const appArrayBuffer = await appResponse.arrayBuffer();
+                const appData = arrayBufferToString(appArrayBuffer);
                 fileArray.push({
                     data: appData,
                     address: firmwareFiles.application.offset
