@@ -50,6 +50,7 @@ Plug in the PocketMage to your PC to view the files. Eject and exit the app when
 ## Settings
 Type the setting as it appears on the screen to change it. Some examples are given below. Note: all settings are case-insensitive, meaning that you can type in all lowercase. All of these settings are also available from the home menu command bar if you memorize them.
 - TimeSet [HH]:[MM] -> TimeSet 15:46
+- DateSet YYYYMMDD -> DateSet 20251230
 - ShowYear [bool] -> ShowYear t
 - Timeout [int] -> Timeout 300
 - **(FN) + ( < )** | Exit app
